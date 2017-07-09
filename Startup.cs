@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using MySQL.Data.EntityFrameworkCore;
 using MySQL.Data.EntityFrameworkCore.Extensions;
 using MySqlApi.DAL;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace MySqlApi
 {
@@ -31,12 +33,16 @@ namespace MySqlApi
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options => {
+                options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });;
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseMySQL(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddTransient<Repository, Repository>();
+            services.AddTransient<TransactionRepository, TransactionRepository>();
+            services.AddTransient<AccountsRepository, AccountsRepository>();
 
         }
 

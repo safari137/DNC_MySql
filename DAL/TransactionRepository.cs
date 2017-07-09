@@ -1,14 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using MySqlApi.Models;
 
 namespace MySqlApi.DAL
 {
-    public class Repository
+    public class TransactionRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public Repository(ApplicationDbContext context)
+        public TransactionRepository(ApplicationDbContext context)
         {
             this._context = context;
         }

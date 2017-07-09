@@ -8,9 +8,9 @@ namespace MySqlApi.Controllers
     [Route("api/transactions")] 
     public class TransactionsController : Controller
     {
-        private Repository repository;
+        private TransactionRepository repository;
         
-        public TransactionsController(Repository repository)
+        public TransactionsController(TransactionRepository repository)
         {
             this.repository = repository;
         }

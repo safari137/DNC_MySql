@@ -17,8 +17,15 @@ namespace MySqlApi.DAL
 
         public DbSet<Transaction> Transactions { get; set; }
 
+        public DbSet<Account> Accounts { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Transaction>()
+                .HasOne(t => t.Account)                
+                .WithMany(a => a.Transactions)
+                .HasForeignKey(t => t.AccountId);
+
             base.OnModelCreating(builder);
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
